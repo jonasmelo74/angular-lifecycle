@@ -1,0 +1,17 @@
+<div class="lifecycle-container">
+  <h1>Angular Lifecycle Hooks</h1>
+  <p>Explore todos os ciclos de vida do Angular nesta demonstração.</p>
+  <div class="actions">
+    <button (click)="clearEvents()">Limpar Eventos</button>
+  </div>
+  <div class="events-log">
+    <h2>Eventos do Ciclo de Vida</h2>
+    <ul>
+      <li *ngFor="let event of lifecycleEvents">{{ event }}</li>
+    </ul>
+  </div>
+  <div class="input-example">
+    <label for="inputProperty">Propriedade &#64;Input:</label>
+    <input id="inputProperty" [(ngModel)]="inputProperty" placeholder="Digite algo para disparar ngOnChanges" />
+  </div>
+</div>
