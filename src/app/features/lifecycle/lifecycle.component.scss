@@ -4,8 +4,11 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   max-width: 600px;
+  min-width: 600px;
   margin: 20px auto;
   background-color: #f9f9f9;
+  max-height: 600px;
+  min-height: 600px;
 
   h1 {
     font-size: 24px;

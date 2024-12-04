@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -13,43 +13,66 @@ export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterCont
   @Input() inputProperty: string = '';
   lifecycleEvents: string[] = [];
 
+  ngOnChangesCount = 0;
+  ngOnInitCount = 0;
+  ngDoCheckCount = 0;
+  ngAfterContentInitCount = 0;
+  ngAfterContentCheckedCount = 0;
+  ngAfterViewInitCount = 0;
+  ngAfterViewCheckedCount = 0;
+  ngOnDestroyCount = 0;
+
+  soma: number = 0
+  soma2: number = 0
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
   logEvent(event: string): void {
     this.lifecycleEvents.push(`${new Date().toLocaleTimeString()}: ${event}`);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.logEvent('ngOnChanges - inputProperty changed');
+    console.log('ngOnChanges', changes);
+    this.ngOnChangesCount++;
   }
 
   ngOnInit(): void {
-    this.logEvent('ngOnInit - component initialized');
+    this.ngOnInitCount++;
   }
 
   ngDoCheck(): void {
-    this.logEvent('ngDoCheck - change detection cycle triggered');
+    this.ngDoCheckCount++;
   }
 
   ngAfterContentInit(): void {
-    this.logEvent('ngAfterContentInit - projected content initialized');
+    console.log('ngAfterContentInit called with inputProperty:', this.inputProperty);
+    this.ngAfterContentInitCount++;
   }
 
   ngAfterContentChecked(): void {
-    this.logEvent('ngAfterContentChecked - projected content checked');
+    this.ngAfterContentCheckedCount++;
   }
 
   ngAfterViewInit(): void {
-    this.logEvent('ngAfterViewInit - component views initialized');
+    this.ngAfterViewInitCount++;
   }
 
   ngAfterViewChecked(): void {
-    this.logEvent('ngAfterViewChecked - component views checked');
+    this.ngAfterViewCheckedCount++;
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {
-    this.logEvent('ngOnDestroy - component destroyed');
+    alert('ngOnDestroy');
+    this.ngOnDestroyCount++;
   }
 
   clearEvents(): void {
     this.lifecycleEvents = [];
+  }
+
+  updateInputProperty(){
+    this.soma += 1
+    this.soma2 += 1
   }
 }
