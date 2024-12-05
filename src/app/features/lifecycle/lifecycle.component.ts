@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges, ChangeDetectorRef, ElementRef, ViewChild, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,9 +9,14 @@ import { FormsModule } from '@angular/forms';
   imports: [ CommonModule, FormsModule ],
   standalone: true
 })
-export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
+export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
   @Input() inputProperty: string = '';
   lifecycleEvents: string[] = [];
+
+  @ViewChild('ngAfterViewInitButton', { static: false }) button!: ElementRef;
+  @ContentChild('projectedContent', { static: false }) projected!: ElementRef;
+  @ContentChild('projectedContent2', { static: false }) projected2!: ElementRef;
+  previousContent: string | null = null;
 
   ngOnChangesCount = 0;
   ngOnInitCount = 0;
@@ -44,16 +49,23 @@ export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterCont
     this.ngDoCheckCount++;
   }
 
-  ngAfterContentInit(): void {
-    console.log('ngAfterContentInit called with inputProperty:', this.inputProperty);
-    this.ngAfterContentInitCount++;
+  ngAfterContentInit() {
+    // Content Projection
+    console.log('ngAfterContentInit chamado no ChildComponent');
+    console.log('Conteúdo projetado:', this.projected.nativeElement.textContent.trim());
   }
 
   ngAfterContentChecked(): void {
-    this.ngAfterContentCheckedCount++;
+    const currentContent = this.projected2?.nativeElement.textContent.trim();
+    console.log(currentContent);
+    if (currentContent !== this.previousContent) {
+      this.previousContent = currentContent;
+      this.ngAfterContentCheckedCount++;
+    }
   }
 
   ngAfterViewInit(): void {
+    this.button.nativeElement.textContent = 'ngAfterViewInit Teste';
     this.ngAfterViewInitCount++;
   }
 
