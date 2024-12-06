@@ -18,20 +18,17 @@ export class HomeComponent {
   inputProperty = 'Teste inicial';
   dynamicContent = 'Texto inicial';
 
-  constructor(private cdr: ChangeDetectorRef){}
+  constructor(){}
 
   toggleComponent() {
     this.showComponent = !this.showComponent;
-    this.cdr.detectChanges(); // Manually trigger change detection
   }
 
   updateInputProperty() {
     this.inputProperty = this.inputValue;
   }
 
-  
-
   updateContent() {
-    this.dynamicContent = `Texto atualizado em ${new Date().toLocaleTimeString()}`;
+    this.dynamicContent = `NgAfterViewChecked: Texto atualizado em ${new Date().toLocaleTimeString()}`;
   }
 }

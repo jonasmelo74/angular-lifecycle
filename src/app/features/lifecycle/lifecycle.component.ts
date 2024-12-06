@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges, ChangeDetectorRef, ElementRef, ViewChild, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Observable, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-lifecycle',
@@ -26,38 +27,50 @@ export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterCont
   ngAfterViewInitCount = 0;
   ngAfterViewCheckedCount = 0;
   ngOnDestroyCount = 0;
+  initialized: boolean = false;
+  count = 0;
 
-  soma: number = 0
-  soma2: number = 0
+  private intervalId: any;
+  private subscription: Subscription = new Subscription();
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef) {
+  }
 
   logEvent(event: string): void {
     this.lifecycleEvents.push(`${new Date().toLocaleTimeString()}: ${event}`);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('ngOnChanges', changes);
     this.ngOnChangesCount++;
   }
 
   ngOnInit(): void {
     this.ngOnInitCount++;
+    const observable$ = new Observable<number>((observer) => {
+      this.intervalId = setInterval(() => {
+        this.count++;
+        observer.next(this.count);  
+        console.log('Count:', this.count);
+      }, 1000);
+    });
+
+    // Inscrevendo-se no Observable
+    this.subscription = observable$.subscribe((data) => {
+      console.log('Data received:', data);
+    });
   }
 
   ngDoCheck(): void {
     this.ngDoCheckCount++;
   }
-
+  
   ngAfterContentInit() {
-    // Content Projection
-    console.log('ngAfterContentInit chamado no ChildComponent');
     console.log('Conteúdo projetado:', this.projected.nativeElement.textContent.trim());
+    this.ngAfterContentInitCount++;
   }
 
   ngAfterContentChecked(): void {
     const currentContent = this.projected2?.nativeElement.textContent.trim();
-    console.log(currentContent);
     if (currentContent !== this.previousContent) {
       this.previousContent = currentContent;
       this.ngAfterContentCheckedCount++;
@@ -65,26 +78,34 @@ export class LifecycleComponent implements OnChanges, OnInit, DoCheck, AfterCont
   }
 
   ngAfterViewInit(): void {
-    this.button.nativeElement.textContent = 'ngAfterViewInit Teste';
+    this.button.nativeElement.textContent = 'ngAfterViewInit';
     this.ngAfterViewInitCount++;
+    this.cdRef.detectChanges();
   }
 
   ngAfterViewChecked(): void {
     this.ngAfterViewCheckedCount++;
-    this.cdr.detectChanges();
+    this.cdRef.detectChanges();
   }
 
   ngOnDestroy(): void {
     alert('ngOnDestroy');
-    this.ngOnDestroyCount++;
+
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
   }
 
   clearEvents(): void {
     this.lifecycleEvents = [];
   }
 
-  updateInputProperty(){
-    this.soma += 1
-    this.soma2 += 1
-  }
+  onInputChange(value: string): void {
+  console.log('Valor mudou para:', value);
+}
+
 }

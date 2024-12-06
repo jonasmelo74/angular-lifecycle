@@ -10,21 +10,19 @@
       <li>ngAfterContentChecked: {{ ngAfterContentCheckedCount }}</li>
       <li>ngAfterViewInit: {{ ngAfterViewInitCount }}</li>
       <li>ngAfterViewChecked: {{ ngAfterViewCheckedCount }}</li>
-      <li>ngOnDestroy: {{ ngOnDestroyCount }}</li>
     </ul>
   </div>
   <div class="input-example">
     <label for="inputProperty">Propriedade &#64;Input:</label>
-    <input id="inputProperty" [(ngModel)]="inputProperty" placeholder="Digite algo para disparar ngOnChanges" />
+    <input id="inputProperty" [(ngModel)]="inputProperty"  placeholder="Digite algo para disparar ngOnChanges" />
   </div>
 
   <ng-content></ng-content>
-
+  
   <button #ngAfterViewInitButton class="ngAfterViewInit"></button>
 
-  <!-- 
-  Teste do ngDoCheck
-  <button (click)="updateInputProperty()">Atualizar Propriedade</button>
-  <span>{{ soma }}</span>
-  <span>{{ soma2 }}</span> -->
+  <div class="flex justify-center items-center mt-5">
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="initialized = !initialized">ngAfterViewChecked</button>
+  </div>
+
 </div>
