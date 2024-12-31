@@ -42,4 +42,4 @@ Este é um projeto criado para demonstrar de forma prática e didática os **cic
    npm install
    ng serve
 
-# Este projeto teve um propósito educativo e foi apresentado em um TechTalk, onde gerou diversos feedbacks valiosos.
+### Este projeto teve um propósito educativo e foi apresentado por mim em um TechTalk, onde recebeu diversos feedbacks valiosos.
