@@ -1,27 +1,45 @@
-# AngularFeatures
+# Angular Lifecycle Hooks Explorer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+Este é um projeto criado para demonstrar de forma prática e didática os **ciclos de vida (lifecycles hooks)** de componentes no Angular. Cada ciclo de vida é implementado e explicado com exemplos claros para ajudar a entender como eles funcionam.
 
-## Development server
+## 🚀 Funcionalidades
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Demonstração prática de todos os lifecycle hooks do Angular:
+  - `ngOnChanges`
+  - `ngOnInit`
+  - `ngDoCheck`
+  - `ngAfterContentInit`
+  - `ngAfterContentChecked`
+  - `ngAfterViewInit`
+  - `ngAfterViewChecked`
+  - `ngOnDestroy`
+- Interface visual para acompanhar os eventos dos hooks em tempo real.
+- Código comentado com explicações sobre a utilidade de cada hook.
+- Estrutura simples para facilitar a replicação e aprendizado.
 
-## Code scaffolding
+## 🛠️ Tecnologias Utilizadas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Angular**: Framework principal para a aplicação.
+- **TypeScript**: Linguagem utilizada para codificação.
+- **Sass**: Para estilização.
+- **Bootstrap**: Para design responsivo e rápido.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🧑‍🏫 Como Funciona
 
-## Running unit tests
+1. **`ngOnChanges`**: Demonstra como lidar com mudanças em propriedades de entrada.
+2. **`ngOnInit`**: Executa lógica de inicialização após o primeiro ciclo de mudanças.
+3. **`ngDoCheck`**: Observa mudanças complexas e customizadas.
+4. **`ngAfterContentInit` e `ngAfterContentChecked`**: Gerencia inicialização e verificação de conteúdo projetado.
+5. **`ngAfterViewInit` e `ngAfterViewChecked`**: Trabalha com inicialização e verificação de visualizações.
+6. **`ngOnDestroy`**: Mostra como realizar limpeza antes de a instância ser destruída.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🔧 Como Executar
 
-## Running end-to-end tests
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/angular-lifecycle-explorer.git
+   npm install
+   ng serve
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+# Este projeto teve um propósito educativo e foi apresentado em um TechTalk, onde gerou diversos feedbacks valiosos.
